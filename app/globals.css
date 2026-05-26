@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif+Display:ital,wght@0,300;0,400;1,300&display=swap');
+
+/* ─── CSS Custom Properties ─────────────────────────────── */
+:root {
+  /* HIRAD theme (default) */
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1E1E1E;
+  --text-primary: #F5F0E8;
+  --text-secondary: #B8AA94;
+  --text-muted: #6B6055;
+  --accent-primary: #C8962C;
+  --accent-light: #E8B84B;
+  --accent-dark: #9A6F1A;
+  --border-color: rgba(200, 150, 44, 0.2);
+  --glow-color: rgba(200, 150, 44, 0.15);
+  --gradient-hero: linear-gradient(135deg, #0A0A0A 0%, #1A1208 50%, #0A0A0A 100%);
+  --gradient-accent: linear-gradient(90deg, #9A6F1A, #E8B84B, #9A6F1A);
+
+  /* Fonts */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+  --font-persian: 'Noto Serif Display', Tahoma, serif;
+
+  /* Transitions */
+  --theme-transition: 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* HIRANGY theme */
+[data-theme="hirangy"] {
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #F0F9F9;
+  --bg-tertiary: #E6F5F5;
+  --text-primary: #0D2B2B;
+  --text-secondary: #1A5050;
+  --text-muted: #4A7878;
+  --accent-primary: #2ABFBF;
+  --accent-light: #4DD9D9;
+  --accent-dark: #1A9090;
+  --border-color: rgba(42, 191, 191, 0.25);
+  --glow-color: rgba(42, 191, 191, 0.12);
+  --gradient-hero: linear-gradient(135deg, #E6F5F5 0%, #C8EDED 50%, #F0F9F9 100%);
+  --gradient-accent: linear-gradient(90deg, #1A9090, #4DD9D9, #1A9090);
+}
+
+/* ─── Base Reset & Global ────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition:
+    background-color var(--theme-transition),
+    color var(--theme-transition);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── RTL Support ─────────────────────────────────────── */
+[dir="rtl"] {
+  font-family: var(--font-persian), var(--font-body);
+  text-align: right;
+}
+
+.persian {
+  font-family: var(--font-persian), Tahoma, serif;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* ─── Selection ──────────────────────────────────────── */
+::selection {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 2px;
+}
+
+/* ─── Theme Transition Overlay ───────────────────────── */
+.theme-transition-bg {
+  transition:
+    background-color var(--theme-transition),
+    border-color var(--theme-transition),
+    color var(--theme-transition);
+}
+
+/* ─── Custom Cursor ──────────────────────────────────── */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* ─── Grain Overlay ──────────────────────────────────── */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.03;
+  animation: grain 0.8s steps(1) infinite;
+}
+
+/* ─── Gold Shimmer Text ───────────────────────────────── */
+.shimmer-text {
+  background: var(--gradient-accent);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ─── Utility Classes ────────────────────────────────── */
+.section-padding {
+  padding: 7rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 10rem 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-padding {
+    padding: 12rem 6rem;
+  }
+}
+
+.text-accent {
+  color: var(--accent-primary);
+}
+
+.bg-surface {
+  background-color: var(--bg-secondary);
+}
+
+.border-accent {
+  border-color: var(--border-color);
+}
+
+.glow {
+  box-shadow: 0 0 40px var(--glow-color);
+}
+
+/* ─── Animated Gradient Border ───────────────────────── */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: var(--gradient-accent);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ─── Line Decoration ────────────────────────────────── */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--accent-primary);
+}
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+}
