@@ -61,16 +61,23 @@ export default function GallerySection() {
           style={{ gridAutoRows: "200px" }}
         >
           {gallery.images.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9, blur: 10 }}
-              animate={
-                isInView
-                  ? {
-                      opacity: 1,
-                      scale: 1,
-                      filter: "blur(0px)",
-                    }
+  <motion.div
+    key={i}
+    initial={{
+      opacity: 0,
+      scale: 0.9,
+      filter: "blur(10px)",
+    }}
+    animate={
+      isInView
+        ? {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+          }
+        : {}
+    }
+  >
                   : {}
               }
               transition={{
